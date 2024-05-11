@@ -1,0 +1,184 @@
+/*
+ * TP2MICROCHIP.c
+ *
+ * Created: 22/4/2024 14:37:28
+ * Author : Barcala
+ */ 
+
+#include <avr/io.h>
+#include <stdlib.h>
+#include "lcd.h"
+
+typedef enum{nulo,inicial,jugando,primNum,may,men} state;
+state estado, estadoAnt;
+uint8_t x,n1,n2;
+
+void Iniciar_LCD(){
+	_delay_ms(500);
+	LCDinit();
+	_delay_ms(500);
+	LCDclr();
+	LCDGotoXY(2,0);
+	_delay_ms(500);
+}
+void Iniciar_MEF(){
+	estado=jugando;
+	estadoAnt=nulo;
+}
+
+void Actualizar_MEF(uint8_t car){
+	switch(estado){
+		case(inicial):
+			if(car == 'A')
+				estado = jugando;
+			if(estadoAnt != inicial){
+				estadoAnt = inicial;
+				LCDclr();
+				LCDGotoXY(0,0);
+				LCDstring("Bienvenido!",11);
+				LCDGotoXY(0,1);
+				LCDstring("P/ JUGAR PULSE A",16);
+			}
+			break;
+		case(jugando):
+			if((car=='*')||((car >= '0')&&(car<= '9'))){
+				estado = primNum;
+				n1 = car;
+			}
+			if(estadoAnt != jugando){
+				estadoAnt = jugando;
+				LCDclr();
+				LCDGotoXY(4,0);
+				LCDstring("JUGANDO",7);
+				LCDGotoXY(0,1);
+				LCDstring("INGRESE NUM:XX",14);
+			}
+			break;
+		case(primNum):
+			if((car >= '0')&&(car<= '9')){
+				estado = primNum;
+				n1 = car;
+			}
+			if(estadoAnt!= primNum){
+				estadoAnt = primNum;
+				LCDGotoXY(12,1);
+				LCDsendChar(n1);
+			}
+			break;
+	}
+}
+
+
+uint8_t KeypadUpdate(uint8_t *key){
+	//devuelve por parametro el caracter presionado y como res de la funcion 1 si se detecto caracter y 0 en c.c.
+	
+	static uint8_t Old_key, Last_valid_key=0xFF;
+	
+	uint8_t r,c;
+	DDRD&=0b11000011;
+	DDRD|=0b10000000;
+	DDRB|=0b00011001;
+	
+	PIND|=0b00111100;
+	
+	uint8_t let[]={'1','2','3','A','4','5','6','B','7','8','9','C','*','0','#','D'};
+	
+	for(c=0;c<4;c++){
+		PORTB|=0b00011001;
+		PORTD|=0b10000000;
+		if(c==0){
+			PORTB&=0b11101111;
+		}else if(c==1){
+			PORTB&=0b11110111;
+		}else if(c==2){
+			PORTB&=0b11111110;
+		}else{
+			PORTD&=0b01111111;
+		}
+		
+		if(!(PIND & (0b00001000))){
+			*key = (let[c*4+0]);
+			return 1;
+		}
+		if(!(PIND & (0b00100000))){
+			*key = (let[c*4+1]);
+			return 1;
+		}		
+		if(!(PIND & (0b00010000))){
+			*key = (let[c*4+2]);
+			return 1;
+		}
+		if(!(PIND & (0b00000100))){
+			*key = (let[c*4+3]);
+			return 1;
+		}
+	}
+	*key = 0xFF;
+	return 0;
+}
+
+uint8_t KEYPAD_Scan (uint8_t *pkey){
+	static uint8_t Old_key, Last_valid_key=0xFF; // no hay tecla presionada;
+	uint8_t Key;
+	KeypadUpdate(&Key);
+	if(Key==0xFF){
+		Old_key=0xFF; // no hay tecla presionada
+		Last_valid_key=0xFF;
+		return 0;
+	}
+	if(Key==Old_key) { //2da verificación
+		if(Key!=Last_valid_key){ //evita múltiple detección
+			*pkey=Key;
+			Last_valid_key = Key;
+			return 1;
+		}
+	}
+	Old_key=Key; //1era verificación
+	return 0;
+}
+
+int main(void)
+{
+	Iniciar_LCD();	
+	Iniciar_MEF();
+	uint8_t car;
+	while(1){
+		if(!KEYPAD_Scan(&car)){
+			car=0xFF;	
+		}
+		_delay_ms(50);
+		Actualizar_MEF(car);
+	
+	}
+	
+	
+	do{
+		KEYPAD_Scan(&car);
+		_delay_ms(50);
+	}while (car != 'A');
+	
+	
+	
+	x = rand() % 100;
+	LCDclr();
+	LCDGotoXY(0,0);
+	LCDstring("Numero generado",15);
+	while(1){};
+	
+	uint8_t pos=0;
+	uint8_t	fil=0;
+	LCDGotoXY(1,fil);
+	while (1) 
+    {
+		if(KEYPAD_Scan(&car)) {
+			LCDsendChar(car);
+			pos= (pos+1) % 10;
+			if(pos==0){
+				fil=(fil+1)%2;
+				LCDGotoXY(1,fil);
+			}
+		}
+		_delay_ms(1);
+    }
+}
+
