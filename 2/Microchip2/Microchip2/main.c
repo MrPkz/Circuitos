@@ -73,7 +73,7 @@ void Actualizar_MEF(uint8_t car){
 				n2='X';
 				n3=' ';
 				LCDclr();
-				LCDGotoXY(0,0);
+				LCDGotoXY(2,0);
 				LCDstring("Bienvenido!",11);
 				LCDGotoXY(0,1);
 				LCDstring("P/ JUGAR PULSE A",16);
@@ -144,7 +144,7 @@ void Actualizar_MEF(uint8_t car){
 				LCDsendChar(ms1);
 				LCDsendChar(ms2);
 				LCDsendChar(ms3);
-				_delay_ms(3000);		//preguntar si la espera la podemos hacer así
+				_delay_ms(3000);		//preguntar si la espera la podemos hacer asï¿½
 				estado=inicial;
 }
 	}
@@ -210,14 +210,14 @@ uint8_t KEYPAD_Scan (uint8_t *pkey){
 		Last_valid_key=0xFF;
 		return 0;
 	}
-	if(Key==Old_key) { //2da verificación
-		if(Key!=Last_valid_key){ //evita múltiple detección
+	if(Key==Old_key) { //2da verificaciï¿½n
+		if(Key!=Last_valid_key){ //evita mï¿½ltiple detecciï¿½n
 			*pkey=Key;
 			Last_valid_key = Key;
 			return 1;
 		}
 	}
-	Old_key=Key; //1era verificación
+	Old_key=Key; //1era verificaciï¿½n
 	return 0;
 }
 
@@ -236,7 +236,7 @@ int main(void)
 	}
 	
 
-//todo lo de abajo debería ser borrado
+//todo lo de abajo deberï¿½a ser borrado
 	
 	do{
 		KEYPAD_Scan(&car);
