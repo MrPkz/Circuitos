@@ -6,3 +6,7 @@ lcd.c
 
 main.c
 
+mef.c
+
+teclado.c
+
