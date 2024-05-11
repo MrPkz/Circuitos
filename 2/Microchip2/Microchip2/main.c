@@ -84,6 +84,8 @@ void Actualizar_MEF(uint8_t car){
 			if((car >= '0')&&(car<= '9')){
 				estado = jugando2;
 				n1 = car;
+			}else if(car == 'D'){
+				estado = inicial;
 			}
 			if(estadoAnt != jugando1){
 				if(estadoAnt != jugando2){
@@ -117,6 +119,8 @@ void Actualizar_MEF(uint8_t car){
 					n3='>';
 					estado = jugando1;
 				}
+			}else if(car == 'D'){
+				estado = inicial;
 			}
 			if(estadoAnt!= jugando2){
 				estadoAnt = jugando2;
