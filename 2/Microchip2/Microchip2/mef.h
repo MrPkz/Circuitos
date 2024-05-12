@@ -5,13 +5,16 @@
  *  Author: perei
  */ 
 
+#include <avr/io.h>
+
+typedef enum{nulo,inicial,jugando1,jugando2,fin} state;
 
 #ifndef MEF_H_
 #define MEF_H_
 
 void Iniciar_MEF();
 
-void Actualizar_MEF(uint8_t car);
+void Actualizar_MEF(uint32_t t, uint8_t car);
 
 
 #endif /* MEF_H_ */
