@@ -10,9 +10,7 @@
 
 static uint8_t KeypadUpdate(uint8_t *key){
 	//devuelve por parametro el caracter presionado y como res de la funcion 1 si se detecto caracter y 0 en c.c.
-
-	static uint8_t Old_key, Last_valid_key=0xFF;
-
+	
 	uint8_t r,c;
 	DDRD&=0b01000011;	//PD7 fila (momentaneamente entrada), PD2,3,4 y 5 columnas (siempre entrada)
 	DDRB&=0b11100110;	//PB0,3,y 4 filas (momentaneamente entrada)
@@ -67,13 +65,13 @@ uint8_t KEYPAD_Scan (uint8_t *pkey){
 		Last_valid_key=0xFF;
 		return 0;
 	}
-	if(Key==Old_key) { //2da verificación
-		if(Key!=Last_valid_key){ //evita múltiple detección
+	if(Key==Old_key) { //2da verificaciï¿½n
+		if(Key!=Last_valid_key){ //evita mï¿½ltiple detecciï¿½n
 			*pkey=Key;
 			Last_valid_key = Key;
 			return 1;
 		}
 	}
-	Old_key=Key; //1era verificación
+	Old_key=Key; //1era verificaciï¿½n
 	return 0;
 }
