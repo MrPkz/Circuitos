@@ -9,8 +9,6 @@
 #ifndef TECLADO_H_
 #define TECLADO_H_
 
-uint8_t KeypadUpdate(uint8_t *key);
-
 uint8_t KEYPAD_Scan (uint8_t *pkey);
 
 

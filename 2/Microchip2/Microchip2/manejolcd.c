@@ -8,6 +8,14 @@
 #include <avr/io.h>
 #include "lcd.h"
 
+void Iniciar_LCD(){
+	_delay_ms(500);
+	LCDinit();
+	_delay_ms(500);
+	LCDclr();
+	LCDGotoXY(2,0);
+	_delay_ms(500);
+}
 
 void pGanador(uint8_t m1, uint8_t m2, uint8_t s1, uint8_t s2, uint8_t ms1, uint8_t ms2, uint8_t ms3){
 	LCDclr();

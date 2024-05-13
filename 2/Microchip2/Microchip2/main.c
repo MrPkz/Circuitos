@@ -5,26 +5,14 @@
  * Author : Barcala
  */ 
 
-#define F_CPU 16000000UL
-#include <avr/io.h>
-#include <stdlib.h>
-#include <avr/interrupt.h>
-#include <util/delay.h>
+#include "main.h"
+#include "manejolcd.h"
 #include "lcd.h"
 #include "teclado.h"
 #include "mef.h"
 #include "timer.h"
 
-uint32_t t;
-
-void Iniciar_LCD(){
-	_delay_ms(500);
-	LCDinit();
-	_delay_ms(500);
-	LCDclr();
-	LCDGotoXY(2,0);
-	_delay_ms(500);
-}
+static uint32_t t;
 
 ISR(TIMER0_OVF_vect){
 	t++;

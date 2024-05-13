@@ -129,16 +129,19 @@
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="main.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="mef.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="mef.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="salidas.c">
+    <Compile Include="manejolcd.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="salidas.h">
+    <Compile Include="manejolcd.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="teclado.c">

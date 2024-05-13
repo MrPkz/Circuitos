@@ -8,7 +8,7 @@ main.c
 
 mef.c
 
-salidas.c
+manejolcd.c
 
 teclado.c
 

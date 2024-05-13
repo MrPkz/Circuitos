@@ -8,14 +8,12 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include "lcd.h"
-#include "salidas.h"
+#include "manejolcd.h"
 
-void Iniciar_Timer(){	//configurar para que la int sea de 0.5 ms
+void Iniciar_Timer(){	//configurar para que la int sea de 1 ms
 	TCCR0A=0b00000000;	//Configurmos el timer 0 en modo Normal
-	TCCR0B=0b00000000;	//Apagamos el preescaler
 	TCNT0=06;			//seteamos el punto de inicio del timer en 6, para que nos haga una interrupcion para 250
-	//OCR0A=0b11111010;	//seleccion del techo = 250
-	TIMSK0=0b00000001;	//Activamos la interrupcion en el canal A
+	TIMSK0=0b00000001;	//Activamos la interrupcion por OVF del timer 0
 	TCCR0B=0b00000011;	//inicio el timer, con prescaler 64
 	sei();
 }
@@ -31,7 +29,7 @@ void getTime(uint32_t t, uint8_t *m1, uint8_t *m2, uint8_t *s1, uint8_t *s2, uin
 	*ms1=(ms / 100) + '0';
 	*ms2=((ms-(ms / 100)*100) / 10) + '0';
 	*ms3=(ms % 10) + '0';
-	
+	//Lo dejamos por ser potencialmente útil
 }
 
 void printTime(uint32_t t){

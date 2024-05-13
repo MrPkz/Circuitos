@@ -8,7 +8,7 @@
 #include <avr/io.h>
 #include "teclado.h"
 
-uint8_t KeypadUpdate(uint8_t *key){
+static uint8_t KeypadUpdate(uint8_t *key){
 	//devuelve por parametro el caracter presionado y como res de la funcion 1 si se detecto caracter y 0 en c.c.
 
 	static uint8_t Old_key, Last_valid_key=0xFF;
