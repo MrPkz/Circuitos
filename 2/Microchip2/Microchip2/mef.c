@@ -24,7 +24,7 @@ void Iniciar_MEF(){
 	prim=0;
 }
 
-void Actualizar_MEF(uint32_t t, uint8_t car){
+void Actualizar_MEF(uint32_t *t, uint8_t car){
 	switch(estado){
 		case(inicial):
 			if(car == 'A')
@@ -48,11 +48,11 @@ void Actualizar_MEF(uint32_t t, uint8_t car){
 				if(estadoAnt != jugando2){
 					pJugando();
 					if(!prim){
-						srand(t);
+						srand(*t);
 						prim++;	
 					}
 					x = rand() % 100;
-					t=0;
+					*t=0;
 					TCCR0B=0b00000011;	//inicio el timer, con prescaler 64
 				}
 				estadoAnt = jugando1;
@@ -84,7 +84,7 @@ void Actualizar_MEF(uint32_t t, uint8_t car){
 			if(estadoAnt!=fin){
 				TCCR0B=0b00000000;	//Apagamos el timer
 				estadoAnt = fin;
-				printTime(t);
+				printTime(*t);
 				_delay_ms(3000);		//preguntar si la espera la podemos hacer as�
 				estado=inicial;
 			}
