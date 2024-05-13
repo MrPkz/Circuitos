@@ -55,5 +55,15 @@ void pNum(uint8_t n1, uint8_t n2, uint8_t n3){
 	LCDsendChar(n1);
 	LCDsendChar(n2);
 	LCDsendChar(n3);
-	LCDGotoXY(12,1);
+	LCDGotoXY(13,1);
+}
+
+void pNumN(uint8_t n1, uint8_t n2, uint8_t n3)
+{
+	LCDGotoXY(12, 1);
+	LCDsendChar(n1);
+	LCDsendChar(n2);
+	LCDsendChar(n3);
+	LCDsendChar('N');
+	LCDGotoXY(12, 1);
 }
