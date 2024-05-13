@@ -16,7 +16,7 @@
 typedef enum{nulo,inicial,jugando1,jugando2,fin} state;
 
 state estado, estadoAnt;
-uint8_t x,n1,n2,n3,a,prim;
+static uint8_t x,n1,n2,n3,a,prim;
 
 void Iniciar_MEF(){
 	estado=inicial;
