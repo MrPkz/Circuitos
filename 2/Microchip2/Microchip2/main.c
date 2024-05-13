@@ -26,7 +26,7 @@ void Iniciar_LCD(){
 	_delay_ms(500);
 }
 
-ISR(TIMER0_COMPA_vect){
+ISR(TIMER0_OVF_vect){
 	t++;
 	TCNT0=06;
 }
@@ -42,7 +42,7 @@ int main(void)
 			car=0xFF;	
 		}
 		_delay_ms(50);
-		Actualizar_MEF(t,car);
+		Actualizar_MEF(&t,car);
 	}
 }
 
