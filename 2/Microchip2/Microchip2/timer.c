@@ -12,10 +12,10 @@
 
 void Iniciar_Timer(){	//configurar para que la int sea de 0.5 ms
 	TCCR0A=0b00000000;	//Configurmos el timer 1 en modo Normal
-	TCCR0B=0b00000000;	//Apagamos el preescaler
+	//TCCR0B=0b00000000;	//Apagamos el preescaler
 	TCNT0=06;			//seteamos el punto de inicio del timer en 6, para que nos haga una interrupcion para 250
 	//OCR0A=0b11111010;	//seleccion del techo = 250
-	TIMSK0=0b00000010;	//Activamos la interrupcion en el canal A
+	TIMSK = (1 << TOIE0); // Activamos la interrupcion del timer 0 por overflow
 	TCCR0B=0b00000011;	//inicio el timer, con prescaler 64
 	sei();
 }
