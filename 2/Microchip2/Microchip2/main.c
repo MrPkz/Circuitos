@@ -15,7 +15,7 @@
 #include "mef.h"
 #include "timer.h"
 
-uint32_t t;
+static uint32_t t;
 
 void Iniciar_LCD(){
 	_delay_ms(500);
@@ -42,7 +42,7 @@ int main(void)
 			car=0xFF;	
 		}
 		_delay_ms(50);
-		Actualizar_MEF(t,car);
+		Actualizar_MEF(&t,car);
 	}
 }
 
