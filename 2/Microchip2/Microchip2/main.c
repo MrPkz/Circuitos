@@ -26,7 +26,7 @@ void Iniciar_LCD(){
 	_delay_ms(500);
 }
 
-ISR(TIMER0_COMPA_vect){
+ISR(TIMER0_OVF_vect){
 	t++;
 	TCNT0=06;
 }
