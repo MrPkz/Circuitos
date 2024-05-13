@@ -8,6 +8,7 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include "lcd.h"
+#include "salidas.h"
 
 void Iniciar_Timer(){	//configurar para que la int sea de 0.5 ms
 	TCCR0A=0b00000000;	//Configurmos el timer 1 en modo Normal
@@ -35,20 +36,6 @@ void getTime(uint32_t t, uint8_t *m1, uint8_t *m2, uint8_t *s1, uint8_t *s2, uin
 
 void printTime(uint32_t t){
 	uint8_t m1,m2,s1,s2,ms1,ms2,ms3;
-	
-	LCDclr();
-	LCDGotoXY(4,0);
-	LCDstring("GANADOR",7);
-	LCDGotoXY(0,1);
-	LCDstring("TIME:",5);
 	getTime(t,&m1,&m2,&s1,&s2,&ms1,&ms2,&ms3);
-	LCDsendChar(m1);
-	LCDsendChar(m2);
-	LCDsendChar(':');
-	LCDsendChar(s1);
-	LCDsendChar(s2);
-	LCDsendChar(':');
-	LCDsendChar(ms1);
-	LCDsendChar(ms2);
-	LCDsendChar(ms3);
+	pGanador(m1,m2,s1,s2,ms1,ms2,ms3);
 }

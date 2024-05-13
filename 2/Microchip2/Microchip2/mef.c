@@ -11,6 +11,7 @@
 #include <util/delay.h>
 #include "timer.h"
 #include "lcd.h"
+#include "salidas.h"
 
 typedef enum{nulo,inicial,jugando1,jugando2,fin} state;
 
@@ -33,11 +34,7 @@ void Actualizar_MEF(uint32_t t, uint8_t car){
 			n1='X';
 			n2='X';
 			n3=' ';
-			LCDclr();
-			LCDGotoXY(2,0);
-			LCDstring("Bienvenido!",11);
-			LCDGotoXY(0,1);
-			LCDstring("P/ JUGAR PULSE A",16);
+			pInicio();
 		}
 		break;
 		case(jugando1):
@@ -49,11 +46,7 @@ void Actualizar_MEF(uint32_t t, uint8_t car){
 		}
 		if(estadoAnt != jugando1){
 			if(estadoAnt != jugando2){
-				LCDclr();
-				LCDGotoXY(4,0);
-				LCDstring("JUGANDO",7);
-				LCDGotoXY(0,1);
-				LCDstring("INGRESE NUM:",12);
+				pJugando();
 				if(!prim){
 					srand(t);
 					prim++;	
@@ -63,11 +56,7 @@ void Actualizar_MEF(uint32_t t, uint8_t car){
 				TCCR0B=0b00000011;	//inicio el timer, con prescaler 64
 			}
 			estadoAnt = jugando1;
-			LCDGotoXY(12,1);
-			LCDsendChar(n1);
-			LCDsendChar(n2);
-			LCDsendChar(n3);
-			LCDGotoXY(12,1);
+			pNum(n1,n2,n3);
 		}
 		break;
 		case(jugando2):
@@ -88,10 +77,7 @@ void Actualizar_MEF(uint32_t t, uint8_t car){
 		}
 		if(estadoAnt!= jugando2){
 			estadoAnt = jugando2;
-			LCDGotoXY(12,1);
-			LCDsendChar(n1);
-			LCDsendChar('X');
-			LCDGotoXY(13,1);
+			pNum(n1,'X',n3);
 		}
 		break;
 		case(fin):
@@ -99,7 +85,7 @@ void Actualizar_MEF(uint32_t t, uint8_t car){
 			TCCR0B=0b00000000;	//Apagamos el timer
 			estadoAnt = fin;
 			printTime(t);
-			_delay_ms(3000);		//preguntar si la espera la podemos hacer as?
+			_delay_ms(3000);		//preguntar si la espera la podemos hacer así
 			estado=inicial;
 		}
 		break;

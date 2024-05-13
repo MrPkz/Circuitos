@@ -135,6 +135,12 @@
     <Compile Include="mef.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="salidas.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="salidas.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="teclado.c">
       <SubType>compile</SubType>
     </Compile>

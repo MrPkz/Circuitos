@@ -8,6 +8,8 @@ main.c
 
 mef.c
 
+salidas.c
+
 teclado.c
 
 timer.c
